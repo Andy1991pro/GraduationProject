@@ -2,16 +2,16 @@ package by.shevchenko.graduationproject.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-@Data
 @Entity
-@Table(name="basket_user")
-public class BasketEntity {
+@Data
+@Table(name="product")
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codeProduct;
-    private String nameProduct;
-    private Boolean availability;
+    private Long id;
+    private String name;
+    private Boolean InStock;
     private double prise;
-
 }
