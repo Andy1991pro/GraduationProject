@@ -19,7 +19,7 @@ public class BasketEntity {
     @ManyToMany
     private List<ProductEntity> products;
 
-public void discountAdd(){
+public void addDiscount(){
 
     if (amountOfPurchases>=5000){
         discount=amountOfPurchases/100*5;
@@ -28,7 +28,7 @@ public void discountAdd(){
         discount=amountOfPurchases/100*8;
     }
 }
-public void sumCorrection(){
+public void correctSum(){
     discountSum=amountOfPurchases-discount;
 }
 }

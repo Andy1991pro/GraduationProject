@@ -17,8 +17,8 @@ public class ProductEntity {
     private double prise;
 
 
-    public void statusInStock() {
-if(quantity<1) {
+    public void statusInStock(){
+        if(quantity<1) {
     this.inStock=false;}
 }
     }

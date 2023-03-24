@@ -16,9 +16,9 @@ public class ProductController {
     private final ProductService productService;
     @PostMapping("{id}")
     public ProductEntity addProduct(@RequestBody ProductEntity product){
-        return productService.addProduct(product);
+        return productService.add(product);
     }
-    @GetMapping("findById{id}")
+    @GetMapping("findById/{id}")
     public ProductEntity findById (@Parameter Long id){
         return productService.findById(id);
     }
@@ -26,9 +26,9 @@ public class ProductController {
     public List<ProductEntity> findAll(){
         return productService.findAll();
     }
-    @GetMapping("{productId}{quantity}")
+    @GetMapping("{productId}/{quantity}")
     public ProductEntity updateProduct (@Parameter Long productId,@Parameter int quantity){
-        return productService.updateProduct(productId,quantity);
+        return productService.update(productId,quantity);
     }
 
 
