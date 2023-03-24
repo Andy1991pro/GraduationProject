@@ -1,23 +1,24 @@
 package by.shevchenko.graduationproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 @Entity
 @Data
-@Table(name="table_user")
-@NoArgsConstructor
+@Table(name="user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String userName;
     private String password;
-    private double amountOfPurchases;
-    private double discount;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(nullable = true)
+    private BasketEntity basket;
+
+
 
 
 
