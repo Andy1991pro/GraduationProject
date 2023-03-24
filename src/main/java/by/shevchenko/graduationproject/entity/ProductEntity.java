@@ -2,7 +2,7 @@ package by.shevchenko.graduationproject.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
 
 @Entity
 @Data
@@ -12,6 +12,14 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Boolean InStock;
+    private Boolean inStock;
+    private int quantity;
     private double prise;
+
+
+    public void statusInStock() {
+if(quantity<1) {
+    this.inStock=false;}
 }
+    }
+
