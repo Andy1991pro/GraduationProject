@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public ProductEntity addProduct(ProductEntity product){
+    public ProductEntity add (ProductEntity product){
         ProductEntity newProduct = new ProductEntity();
         newProduct.setName(product.getName());
         newProduct.setPrise(product.getPrise());
@@ -31,7 +31,7 @@ public class ProductService {
         return productRepository.save(newProduct);
     }
 @Transactional
-    public ProductEntity updateProduct (Long productId, int quantity){
+    public ProductEntity update (Long productId, int quantity){
         ProductEntity product = findById(productId);
         product.setQuantity(product.getQuantity()+quantity);
         if (product.getQuantity()>0){

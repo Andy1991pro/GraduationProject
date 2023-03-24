@@ -19,7 +19,7 @@ public class BasketService {
     private final BasketRepository basketRepository;
     public final ProductRepository productRepository;
 
-@Transactional
+    @Transactional
     public List<ProductEntity> addToBasket (Long id,Long userId){
     ProductEntity product = productRepository.findById(id).orElseThrow();
     BasketEntity basket = basketRepository.findById(userId).orElseThrow();
@@ -31,8 +31,8 @@ public class BasketService {
         product.statusInStock();
         basket.getProducts().add(product);
         basket.setAmountOfPurchases(addAmountOfPurchases);
-        basket.discountAdd();
-        basket.sumCorrection();
+        basket.addDiscount();
+        basket.correctSum();
     }
     return basket.getProducts();
     }

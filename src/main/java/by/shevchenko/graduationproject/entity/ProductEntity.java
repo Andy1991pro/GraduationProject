@@ -18,7 +18,7 @@ public class ProductEntity {
 
 
     public void statusInStock() {
-if(quantity<1) {
+        if(quantity<1) {
     this.inStock=false;}
 }
     }

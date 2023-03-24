@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("basket")
 public class BasketController {
     private final BasketService basketService;
-    @PostMapping("{id}{userId}")
+    @PostMapping("{id}/{userId}")
     public List<ProductEntity> addToBasket (@Parameter Long id,@Parameter Long userId){
        return basketService.addToBasket(id,userId);
     }
