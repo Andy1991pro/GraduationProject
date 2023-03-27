@@ -20,20 +20,40 @@ public class BasketService {
     public final ProductRepository productRepository;
 
     @Transactional
-    public List<ProductEntity> addToBasket (Long id,Long userId){
-    ProductEntity product = productRepository.findById(id).orElseThrow();
-    BasketEntity basket = basketRepository.findById(userId).orElseThrow();
-    double prise=product.getPrise();
-    int minusQuantity= product.getQuantity()-1;
-    double addAmountOfPurchases = basket.getAmountOfPurchases()+prise;
-    if(product.getQuantity()>0){
-        product.setQuantity(minusQuantity);
-        product.statusInStock();
-        basket.getProducts().add(product);
-        basket.setAmountOfPurchases(addAmountOfPurchases);
-        basket.addDiscount();
-        basket.correctSum();
+    public List<ProductEntity> addToBasket(Long id, Long userId) {
+        ProductEntity product = productRepository.findById(id).orElseThrow();
+        BasketEntity basket = basketRepository.findById(userId).orElseThrow();
+        double prise = product.getPrise();
+        int minusQuantity = product.getQuantity() - 1;
+        double addAmountOfPurchases = basket.getAmountOfPurchases() + prise;
+        if (product.getQuantity() > 0) {
+            product.setQuantity(minusQuantity);
+            product.statusInStock();
+            basket.getProducts().add(product);
+            basket.setAmountOfPurchases(addAmountOfPurchases);
+            basket.addDiscount();
+            basket.correctSum();
+        }
+        return basket.getProducts();
     }
-    return basket.getProducts();
+
+    @Transactional
+    public List<ProductEntity> deleteFromBasket(Long id, Long basketId) {
+        ProductEntity product = productRepository.findById(id).orElseThrow();
+        BasketEntity basket = basketRepository.findById(basketId).orElseThrow();
+        double prise = product.getPrise();
+        int plusQuantity = product.getQuantity() + 1;
+        double minusAmountOfPurchases = basket.getAmountOfPurchases() - prise;
+        List<ProductEntity> list = basket.getProducts();
+        if (list.contains(product)) {
+            list.remove(product);
+            basket.setProducts(list);
+            product.setQuantity(plusQuantity);
+            product.statusInStock();
+            basket.setAmountOfPurchases(minusAmountOfPurchases);
+            basket.addDiscount();
+            basket.correctSum();
+        }
+        return basket.getProducts();
     }
 }

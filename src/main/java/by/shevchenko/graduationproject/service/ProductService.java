@@ -16,33 +16,39 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public ProductEntity add (ProductEntity product){
+    public ProductEntity add(ProductEntity product) {
         ProductEntity newProduct = new ProductEntity();
         newProduct.setName(product.getName());
         newProduct.setPrise(product.getPrise());
         newProduct.setId(product.getId());
         newProduct.setQuantity(product.getQuantity());
-        if(product.getQuantity()>0){
+        if (product.getQuantity() > 0) {
             newProduct.setInStock(true);
-        }
-        else {
+        } else {
             newProduct.setInStock(false);
         }
         return productRepository.save(newProduct);
     }
+
     @Transactional
-    public ProductEntity update(Long productId, int quantity){
+    public ProductEntity update(Long productId, int quantity) {
         ProductEntity product = findById(productId);
-        product.setQuantity(product.getQuantity()+quantity);
-        if (product.getQuantity()>0){
+        product.setQuantity(product.getQuantity() + quantity);
+        if (product.getQuantity() > 0) {
             product.setInStock(true);
         }
-                return product;
+        return product;
     }
-    public ProductEntity findById(Long id){
+
+    public ProductEntity findById(Long id) {
         return productRepository.findById(id).orElseThrow();
     }
-    public List<ProductEntity> findAll(){
+
+    public List<ProductEntity> findAll() {
         return productRepository.findAll();
+    }
+
+    public void delete(Long id) {
+        productRepository.deleteById(id);
     }
 }

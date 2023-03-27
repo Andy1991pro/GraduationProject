@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="product")
+@Table(name = "product")
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +17,12 @@ public class ProductEntity {
     private double prise;
 
 
-    public void statusInStock(){
-        if(quantity<1) {
-    this.inStock=false;}
-}
+    public void statusInStock() {
+        if (quantity < 1) {
+            this.inStock = false;
+        } else {
+            this.inStock = true;
+        }
     }
+}
 

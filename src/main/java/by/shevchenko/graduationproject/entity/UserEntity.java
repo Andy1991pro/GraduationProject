@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="user")
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,12 +14,10 @@ public class UserEntity {
     @Column(unique = true)
     private String userName;
     private String password;
+    private Long role;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(nullable = true)
     private BasketEntity basket;
-
-
-
 
 
 }
