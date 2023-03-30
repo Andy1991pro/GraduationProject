@@ -2,10 +2,13 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/testbase
     username: root
-    password: Bizzic7567
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  jwt:
+    my_secret: banana

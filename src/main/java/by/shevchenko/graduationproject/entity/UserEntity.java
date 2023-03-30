@@ -12,9 +12,11 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String userName;
+    private String login;
     private String password;
-    private Long role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private RoleEntity role;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(nullable = true)
     private BasketEntity basket;

@@ -29,7 +29,7 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("{productId}/{quantity}")
+    @GetMapping("update/{productId}/{quantity}")
     public ProductEntity update(@PathVariable Long productId, @PathVariable int quantity) {
         return productService.update(productId, quantity);
     }
