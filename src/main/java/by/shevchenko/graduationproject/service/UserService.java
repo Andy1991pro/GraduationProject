@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Optional;
@@ -23,7 +22,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private  final UserConverter converter;
+    private final UserConverter converter;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public void save(AuthRequest request) {
@@ -47,12 +46,15 @@ public class UserService {
         log.error(user.getPassword());
         return converter.convert(user);
     }
+
     public Optional<UserEntity> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
     public UserEntity getTokenForUserIfExists(AuthRequest authRequest) {
         return findByLoginAndPassword(authRequest.getLogin(), authRequest.getPassword()).orElseThrow();
     }
+
     public Optional<UserEntity> findByLoginAndPassword(String login, String password) {
         UserEntity user = findByLogin(login).orElseThrow();
         if (passwordEncoder.matches(password, user.getPassword())) {

@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity // Можно не писать
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -24,10 +24,10 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests((auth) -> auth
-                        .requestMatchers("/product/update/","product/delete/","product/").hasRole("ADMIN")
-                        .requestMatchers("basket/**").hasRole("USER")
-                        .requestMatchers("/registration", "/login", "/swagger-ui/**", "/v3/api-docs/**","product/findAll","product/findById/")
+                        .requestMatchers("/registration", "/login", "/swagger-ui/**", "/v3/api-docs/**", "/product/findAll", "/product/findById/")
                         .permitAll()
+                        .requestMatchers("/product/", "product/update/").hasRole("ADMIN")
+                        .requestMatchers("basket/**").hasRole("USER")
                         .anyRequest()
                         .authenticated()
                         .and()

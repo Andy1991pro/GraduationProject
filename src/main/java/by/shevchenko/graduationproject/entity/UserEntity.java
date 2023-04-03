@@ -20,6 +20,4 @@ public class UserEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(nullable = true)
     private BasketEntity basket;
-
-
 }

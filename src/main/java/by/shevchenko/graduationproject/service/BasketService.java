@@ -20,10 +20,10 @@ public class BasketService {
     public final ProductRepository productRepository;
 
     @Transactional
-    public List<ProductEntity> addToBasket(Long id, Long userId) {
-        ProductEntity product = productRepository.findById(id).orElseThrow();
+    public List<ProductEntity> addToBasket(Long productId, Long userId) {
+        ProductEntity product = productRepository.findById(productId).orElseThrow();
         BasketEntity basket = basketRepository.findById(userId).orElseThrow();
-        double prise = product.getPrise();
+        double prise = product.getPrice();
         int minusQuantity = product.getQuantity() - 1;
         double addAmountOfPurchases = basket.getAmountOfPurchases() + prise;
         if (product.getQuantity() > 0) {
@@ -41,7 +41,7 @@ public class BasketService {
     public List<ProductEntity> deleteFromBasket(Long id, Long basketId) {
         ProductEntity product = productRepository.findById(id).orElseThrow();
         BasketEntity basket = basketRepository.findById(basketId).orElseThrow();
-        double prise = product.getPrise();
+        double prise = product.getPrice();
         int plusQuantity = product.getQuantity() + 1;
         double minusAmountOfPurchases = basket.getAmountOfPurchases() - prise;
         List<ProductEntity> list = basket.getProducts();

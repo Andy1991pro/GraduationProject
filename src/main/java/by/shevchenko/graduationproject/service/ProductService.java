@@ -19,7 +19,7 @@ public class ProductService {
     public ProductEntity add(ProductEntity product) {
         ProductEntity newProduct = new ProductEntity();
         newProduct.setName(product.getName());
-        newProduct.setPrise(product.getPrise());
+        newProduct.setPrice(product.getPrice());
         newProduct.setId(product.getId());
         newProduct.setQuantity(product.getQuantity());
         if (product.getQuantity() > 0) {

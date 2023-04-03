@@ -20,21 +20,19 @@ public class BasketEntity {
     private List<ProductEntity> products;
 
     public void addDiscount() {
+        if (amountOfPurchases >= 8000) {
+            discount = amountOfPurchases / 100 * 8;
+        }
+        if (amountOfPurchases >= 5000 && amountOfPurchases < 8000) {
+            discount = amountOfPurchases / 100 * 5;
+        }
         if (amountOfPurchases < 5000) {
             discount = 0;
         }
 
-        if (amountOfPurchases >= 5000) {
-            discount = amountOfPurchases / 100 * 5;
-        }
-        if (amountOfPurchases >= 8000) {
-            discount = amountOfPurchases / 100 * 8;
-
-        }
     }
 
     public void correctSum() {
         discountSum = amountOfPurchases - discount;
     }
-
 }

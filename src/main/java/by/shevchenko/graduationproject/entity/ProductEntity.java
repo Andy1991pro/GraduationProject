@@ -14,7 +14,7 @@ public class ProductEntity {
     private String name;
     private Boolean inStock;
     private int quantity;
-    private double prise;
+    private double price;
 
 
     public void statusInStock() {
