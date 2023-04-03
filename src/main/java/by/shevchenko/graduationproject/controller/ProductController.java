@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,11 +32,13 @@ public class ProductController {
             , schema = @Schema(implementation = ProductEntity.class)
             , examples = @ExampleObject(value = "{\n" +
             "  \"id\": 1,\n" +
-            "  \"name\": \"Andy\",\n" +
-            "  \"inStock\": false,\n" +
+            "  \"name\": \"Iphone 13ProMax\",\n" +
+            "  \"inStock\": true,\n" +
             "  \"quantity\": 2,\n" +
             "  \"price\": 1000\n" +
             "}"))}))
+
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("{id}")
     public ProductEntity addProduct(@RequestBody ProductEntity product) {
         return productService.add(product);
@@ -43,17 +46,20 @@ public class ProductController {
 
     @Operation(summary = "find by id product"
             , description = "this method return ProductEntity"
-            , responses = @ApiResponse(responseCode = "200"
+            , responses = {@ApiResponse(responseCode = "200"
             , description = "ProductEntity"
             , content = {@Content(mediaType = "application/json"
             , schema = @Schema(implementation = ProductEntity.class)
             , examples = @ExampleObject(value = "{\n" +
             "  \"id\": 1,\n" +
-            "  \"name\": \"Andy\",\n" +
-            "  \"inStock\": false,\n" +
+            "  \"name\": \"Iphone 13\",\n" +
+            "  \"inStock\": true,\n" +
             "  \"quantity\": 2,\n" +
             "  \"price\": 1000\n" +
-            "}"))}))
+            "}"))})
+            , @ApiResponse(responseCode = "404"
+            , description = "Product not find"
+            , content = @Content)})
     @GetMapping("{id}")
     public ProductEntity findById(@PathVariable Long id) {
         return productService.findById(id);
@@ -65,13 +71,22 @@ public class ProductController {
             , description = "List product"
             , content = {@Content(mediaType = "application/json"
             , schema = @Schema(implementation = ProductEntity.class)
-            , examples = @ExampleObject(value = "{\n" +
+            , examples = @ExampleObject(value = "[\n" +
+            "{\n" +
             "  \"id\": 1,\n" +
             "  \"name\": \"Iphone\",\n" +
-            "  \"inStock\": false,\n" +
-            "  \"quantity\": 0,\n" +
+            "  \"inStock\": true,\n" +
+            "  \"quantity\": 2,\n" +
             "  \"price\": 1000\n" +
-            "},\n"))}))
+            "},\n" +
+            "{\n" +
+            "  \"id\": 2,\n" +
+            "  \"name\": \"Samsung\",\n" +
+            "  \"inStock\": true,\n" +
+            "  \"quantity\": 1,\n" +
+            "  \"price\": 2000\n" +
+            "}\n" +
+            "]\n"))}))
     @GetMapping
     public List<ProductEntity> findAll() {
         return productService.findAll();
@@ -79,17 +94,20 @@ public class ProductController {
 
     @Operation(summary = "update product"
             , description = "this method return ProductEntity"
-            , responses = @ApiResponse(responseCode = "200"
+            , responses = {@ApiResponse(responseCode = "200"
             , description = "ProductEntity"
             , content = {@Content(mediaType = "application/json"
             , schema = @Schema(implementation = ProductEntity.class)
             , examples = @ExampleObject(value = "{\n" +
             "  \"id\": 1,\n" +
-            "  \"name\": \"Andy\",\n" +
-            "  \"inStock\": false,\n" +
+            "  \"name\": \"Iphone 12\",\n" +
+            "  \"inStock\": true,\n" +
             "  \"quantity\": 2,\n" +
             "  \"price\": 1000\n" +
-            "}"))}))
+            "}"))})
+            , @ApiResponse(responseCode = "404"
+            , description = "Product not find"
+            , content = @Content)})
     @GetMapping("update/{productId}/{quantity}")
     public ProductEntity update(@PathVariable Long productId, @PathVariable int quantity) {
         return productService.update(productId, quantity);
@@ -97,12 +115,13 @@ public class ProductController {
 
     @Operation(summary = "Removes a product from date"
             , description = "method returns nothing"
-            , responses = @ApiResponse(responseCode = "200"
-            , content = {@Content(mediaType = "application/json"
-            , schema = @Schema(implementation = ProductEntity.class))}))
+            , responses = {@ApiResponse(responseCode = "200")
+            , @ApiResponse(responseCode = "404"
+            , description = "Product not find"
+            , content = @Content)})
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
-
 }

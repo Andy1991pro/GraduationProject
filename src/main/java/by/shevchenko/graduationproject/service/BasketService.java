@@ -38,8 +38,8 @@ public class BasketService {
     }
 
     @Transactional
-    public List<ProductEntity> deleteFromBasket(Long id, Long basketId) {
-        ProductEntity product = productRepository.findById(id).orElseThrow();
+    public List<ProductEntity> deleteFromBasket(Long productId, Long basketId) {
+        ProductEntity product = productRepository.findById(productId).orElseThrow();
         BasketEntity basket = basketRepository.findById(basketId).orElseThrow();
         double prise = product.getPrice();
         int plusQuantity = product.getQuantity() + 1;

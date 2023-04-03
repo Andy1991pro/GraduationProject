@@ -24,9 +24,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests((auth) -> auth
-                        .requestMatchers("/registration", "/login", "/swagger-ui/**", "/v3/api-docs/**", "/product/findAll", "/product/findById/")
+                        .requestMatchers("/registration", "/login", "/swagger-ui/**", "/v3/api-docs/**", "/product", "/product/")
                         .permitAll()
-                        .requestMatchers("/product/", "product/update/").hasRole("ADMIN")
+                        .requestMatchers("/product/**").hasRole("ADMIN")
                         .requestMatchers("basket/**").hasRole("USER")
                         .anyRequest()
                         .authenticated()
