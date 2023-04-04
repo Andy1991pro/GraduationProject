@@ -58,4 +58,12 @@ public class SwaggerConfig {
                 .pathsToMatch("/basket/**", "/login")
                 .build();
     }
+    @Bean
+    public GroupedOpenApi getAdminController() {
+        return GroupedOpenApi.builder()
+                .group("admin controller")
+                .displayName("admin controller")
+                .pathsToMatch("/admin", "/login")
+                .build();
+    }
 }
